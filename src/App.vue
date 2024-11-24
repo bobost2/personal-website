@@ -52,6 +52,7 @@ body {
   height: 100vh;
 }
 
+/*noinspection CssUnusedSymbol*/
 #app {
   height: 100%;
   display: flex;
