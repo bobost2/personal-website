@@ -35,6 +35,7 @@ const openHamburgerMenu = ref(false);
 
 </script>
 
+<!--suppress CssUnusedSymbol-->
 <style scoped>
   .desktop-nav {
     padding: 10px 20px 10px 10px;
