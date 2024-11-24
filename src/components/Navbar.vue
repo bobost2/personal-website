@@ -38,7 +38,7 @@ const openHamburgerMenu = ref(false);
 <style scoped>
   .desktop-nav {
     padding: 10px 20px 10px 10px;
-    background: #1e1e1e;
+    background: var(--navbar-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,7 +46,7 @@ const openHamburgerMenu = ref(false);
   }
 
   .mobile-nav {
-    background: #1e1e1e;
+    background: var(--navbar-color);
     box-shadow: 0 4px 4px #00000063;
     display: flex;
     flex-direction: column;

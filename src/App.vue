@@ -38,6 +38,7 @@ import Navbar from "@/components/Navbar.vue";
 
 :root {
   --background-color: #282828;
+  --navbar-color: #1e1e1e;
   --font-color: #939393; /* Base font color */
   --font-color-2: #717171; /* Hover font color */
   --font-color-3: #616161; /* Active font color */
