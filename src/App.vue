@@ -49,5 +49,12 @@ body {
   color: var(--font-color);
   margin: 0;
   font-family: "berlin-sans-fb", sans-serif;
+  height: 100vh;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

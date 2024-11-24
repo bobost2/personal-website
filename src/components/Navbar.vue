@@ -44,6 +44,9 @@ const openHamburgerMenu = ref(false);
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 4px #00000063;
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   .mobile-nav {
