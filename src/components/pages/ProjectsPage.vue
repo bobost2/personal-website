@@ -4,7 +4,8 @@
       <h1>Personal Projects</h1>
       <h3>Here you can find all of my personal projects I'm working on or have worked on.
         Non-personal/company projects are not completely documented or shown due to NDA and privacy reasons.
-        To see more details about a project, click on its card.</h3>
+        To see more details about a project, click on its card. Note that most of the projects are unfinished,
+        since they were created either for the reason to learn something new or to experiment with it.</h3>
     </header>
     <div class="filters-outer">
       <div class="filters-placeholder">TO DO - Add project filters here</div>

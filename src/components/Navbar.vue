@@ -5,7 +5,7 @@
     <div class="button-container">
       <NavbarButton button-style="desktop" text="Home" path="/" :is-selected="route.name === 'home'" />
       <NavbarButton button-style="desktop" text="Projects" path="/projects" :is-selected="route.name === 'projects'" />
-      <NavbarButton button-style="desktop" text="Initiatives" path="/initiatives" :is-selected="route.name === 'initiatives'" />
+<!--      <NavbarButton button-style="desktop" text="Initiatives" path="/initiatives" :is-selected="route.name === 'initiatives'" />-->
       <NavbarButton button-style="desktop" text="About Me" path="/about-me" :is-selected="route.name === 'about-me'" />
     </div>
 
@@ -16,7 +16,7 @@
     <nav v-if="openHamburgerMenu" class="mobile-nav">
       <NavbarButton button-style="mobile" text="Home" path="/" :is-selected="route.name === 'home'" />
       <NavbarButton button-style="mobile" text="Projects" path="/projects" :is-selected="route.name === 'projects'" />
-      <NavbarButton button-style="mobile" text="Initiatives" path="/initiatives" :is-selected="route.name === 'initiatives'" />
+<!--      <NavbarButton button-style="mobile" text="Initiatives" path="/initiatives" :is-selected="route.name === 'initiatives'" />-->
       <NavbarButton button-style="mobile" text="About Me" path="/about-me" :is-selected="route.name === 'about-me'" />
     </nav>
   </transition>
