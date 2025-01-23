@@ -18,7 +18,7 @@
 
   const router = useRouter();
 
-  const showImage = false;
+  const showImage = true;
   const hasAnim = true;
   const showAnim = ref(false);
 
