@@ -11,23 +11,25 @@
       <div class="filters-placeholder">TO DO - Add project filters here</div>
     </div>
     <div class="projects-container">
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
-      <project-item />
+      <project-item v-for="project in projects" :key="project.id" :id="project.id" :name="project.name"
+                    :description="project.shortDescription" :start-date="project.dateStarted" :end-date="project.dateEnded"/>
     </div>
   </div>
 </template>
 
 <script setup>
 import ProjectItem from "@/components/project-components/ProjectItem.vue";
+import { onMounted, ref } from "vue";
+
+const projects = ref([]);
+
+onMounted(() => {
+  fetch("https://localhost:7001/Project/GetProjects")
+      .then(response => response.json())
+      .then(data => {
+        projects.value = data;
+      });
+});
 </script>
 
 <style scoped>

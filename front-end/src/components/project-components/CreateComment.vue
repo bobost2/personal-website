@@ -1,6 +1,7 @@
 <template>
   <textarea placeholder="Enter your comment here" v-model="comment"/>
   <div class="name-submit-group">
+    <label v-if="isThereError" class="error-text">{{errorText}}</label>
     <input placeholder="Enter your name here" v-model="user"/>
     <rect-button @click="sendComment">Submit</rect-button>
   </div>
@@ -11,17 +12,45 @@ import RectButton from "@/components/RectButton.vue";
 import { ref } from 'vue';
 
 const props = defineProps({
+  projectId: Number,
   sendCommentFunc: Function
 })
 
 const comment = ref('');
 const user = ref('');
 
-function sendComment() {
-  props.sendCommentFunc(comment.value, user.value);
+const isThereError = ref(false);
+const errorText = ref('');
 
-  comment.value = '';
-  user.value = '';
+function sendComment() {
+  isThereError.value = false;
+
+  if (comment.value === '' || user.value === '') {
+    isThereError.value = true;
+    errorText.value = 'Please fill in all of the fields.';
+    return;
+  }
+
+  fetch('https://localhost:7001/Project/SendComment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      projectId: props.projectId,
+      name: user.value,
+      comment: comment.value
+    })
+  }).then(response => {
+    if (response.status === 200) {
+      props.sendCommentFunc(comment.value, user.value);
+      comment.value = '';
+      user.value = '';
+    } else {
+      isThereError.value = true;
+      errorText.value = 'An error occurred while sending the comment.';
+    }
+  });
 }
 
 </script>
@@ -55,5 +84,11 @@ function sendComment() {
     width: 100%;
     justify-content: flex-end;
     flex-wrap: wrap;
+  }
+
+  .error-text {
+    color: #ff7d7d;
+    font-size: 20px;
+    margin-right: 10px;
   }
 </style>

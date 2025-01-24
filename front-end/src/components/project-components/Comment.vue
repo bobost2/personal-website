@@ -1,10 +1,10 @@
 <template>
   <div class="comment-body">
-    <header><b>{{comment.user}}</b> commented on <b>
-      {{new Date(comment.date).toLocaleDateString() + " " +
-      new Date(comment.date).toLocaleTimeString()}}
+    <header><b>{{comment.username}}</b> commented on <b>
+      {{new Date(comment.time).toLocaleDateString() + " " +
+      new Date(comment.time).toLocaleTimeString()}}
     </b>:</header>
-    <div class="comment-contents">{{comment.comment}}</div>
+    <div class="comment-contents">{{comment.contents}}</div>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
 defineProps({
   comment: {}
 })
+// Shows them in UTC time, but it's better than nothing.
 </script>
 
 <style scoped>

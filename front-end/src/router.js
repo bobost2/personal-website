@@ -6,6 +6,8 @@ import ProjectsPage from "@/components/pages/ProjectsPage.vue";
 import InitiativesPage from "@/components/pages/InitiativesPage.vue";
 import ProjectPage from "@/components/pages/ProjectPage.vue";
 import NotFound from "@/components/pages/NotFound.vue";
+import AdminLoginPage from "@/components/pages/admin/AdminLoginPage.vue";
+import ManageProjectsPage from "@/components/pages/admin/ManageProjectsPage.vue";
 
 const routes = [
     { path: '/', component: HomePage, name: 'home' },
@@ -13,6 +15,8 @@ const routes = [
     { path: '/projects/:id', component: ProjectPage, name: 'project' },
     { path: '/initiatives', component: InitiativesPage, name: 'initiatives' },
     { path: '/about-me', component: AboutMePage, name: 'about-me' },
+    { path: '/admin', component: ManageProjectsPage, name: 'admin' },
+    { path: '/admin/login', component: AdminLoginPage, name: 'admin-login' },
     { path: '/:pathMatch(.*)*', component: NotFound, name: 'not-found' },
 ];
 

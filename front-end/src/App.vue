@@ -1,10 +1,19 @@
 <template>
-  <Navbar/>
+  <Navbar v-if="showNavbar"/>
   <router-view></router-view>
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import Navbar from "@/components/Navbar.vue";
+
+const route = useRoute();
+
+const showNavbar = computed(() => {
+  const hideNavbarPattern = /^\/admin/;
+  return !hideNavbarPattern.test(route.path);
+});
 </script>
 
 <style>

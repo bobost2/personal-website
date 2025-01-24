@@ -2,7 +2,7 @@
   <div class="project-container">
     <header>
       <h1>
-        Temporary project
+        {{ project?.name }}
       </h1>
       <RectButton @click="returnToProjects">
         Return to projects
@@ -11,25 +11,24 @@
 
     <div class="info-box">
       <div class="status">
-        Type: <IconText icon="Game" text="Game"/>
+        Type: <IconText :icon="project?.type.iconPath" :text="project?.type.name"/>
       </div>
-      <div>Date started: 25 Nov 2024</div>
-      <div>Date ended: 25 Nov 2025</div>
+      <div>Date started: {{ project?.dateStarted.split("T")[0] }}</div>
+      <div>Date ended: {{ project?.dateEnded.split("T")[0] }}</div>
       <div class="status">
-        Status: <IconText icon="Frozen" text="Frozen"/>
+        Status: <IconText :icon="project?.status.iconPath" :text="project?.status.name"/>
       </div>
 
       <div class="status">
         Technologies used:
-        <IconText icon="Unreal" text="Unreal Engine 5" is-badge/>
-        <IconText icon="Blender" text="Blender" is-badge/>
+        <IconText v-for="technology in project?.technologies" :key="technology.id" :icon="technology.iconPath"
+                  :text="technology.name" is-badge/>
       </div>
 
       <div class="status">
         Tags:
-        <IconText text="Tag1" is-badge/>
-        <IconText text="Tag2" is-badge/>
-        <IconText text="Tag3" is-badge/>
+        <IconText v-for="tag in project?.tags" :key="tag.id" :text="tag.name" is-badge/>
+        <label v-if="project?.tags.length === 0">No tags</label>
       </div>
     </div>
 
@@ -37,7 +36,7 @@
       About this project:
     </h2>
     <p>
-      Imagine there is an actual description of the project here.
+      {{ project?.longDescription }}
     </p>
 
     <h2>
@@ -48,7 +47,7 @@
     </p>
 
     <h2>
-      Links and downloads:
+      Links and downloads (Still hardcoded):
     </h2>
     <div class="info-box" style="margin-top: 20px">
       <div v-if="!hasLinksOrDownloads">
@@ -62,7 +61,7 @@
       Add a comment:
     </h2>
 
-    <CreateComment :sendCommentFunc="sendComment"/>
+    <CreateComment :project-id="projectId" :sendCommentFunc="sendComment"/>
 
     <h2>
       Comments:
@@ -78,7 +77,7 @@
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import RectButton from "@/components/RectButton.vue";
 import IconText from "@/components/project-components/IconText.vue";
 import LinkDownload from "@/components/project-components/LinkDownload.vue";
@@ -89,19 +88,43 @@ const route = useRoute();
 const router = useRouter();
 
 const comments = ref([]);
-
 const projectId = route.params.id;
+const project = ref(null);
 
 function returnToProjects() {
   router.push('/projects');
 }
 
 function sendComment(comment, user) {
-  comments.value.push({ comment, user, date: new Date() });
+  comments.value.unshift({ contents: comment, username: user, time: new Date() });
   console.log(comments);
 }
 
 const hasLinksOrDownloads = true;
+
+onMounted(() => {
+  if (isNaN(projectId)) {
+    router.push('/projects');
+    return;
+  }
+
+  fetch(`https://localhost:7001/Project/GetProject?id=${projectId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data === null || data.code === "projectNotFound") {
+          router.push('/projects');
+        }
+        project.value = data;
+      }).catch(() => {
+        router.push('/projects');
+      });
+
+  fetch(`https://localhost:7001/Project/GetProjectComments?id=${projectId}`)
+      .then(response => response.json())
+      .then(data => {
+        comments.value = data;
+      });
+});
 </script>
 
 <style scoped>

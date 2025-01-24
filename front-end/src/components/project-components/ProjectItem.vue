@@ -6,14 +6,14 @@
       <img v-else class="image-prev" src="/project-pic-placeholder.jpeg" alt="Project image"/>
     </div>
     <div v-else class="image-placeholder">No Image (300x170)</div>
-    <div class="title">Title</div>
-    <div class="date">25 Nov 2024 - 25 Nov 2025</div>
-    <div class="description">Description</div>
+    <div class="title">{{name}}</div>
+    <div class="date">{{startDate.split("T")[0]}} - {{endDate.split("T")[0]}}</div>
+    <div class="description">{{description}}</div>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, defineProps } from 'vue';
   import { useRouter } from 'vue-router';
 
   const router = useRouter();
@@ -23,6 +23,14 @@
   const showAnim = ref(false);
 
   let animTimeout = null;
+
+  const props = defineProps({
+    id: Number,
+    name: String,
+    description: String,
+    startDate: Date,
+    endDate: Date
+  })
 
   function startAutoplay() {
     if (!hasAnim) return;
@@ -42,7 +50,7 @@
 
   function onProjectClick()
   {
-    router.push("/projects/temp");
+    router.push(`/projects/${props.id}`);
   }
 </script>
 
